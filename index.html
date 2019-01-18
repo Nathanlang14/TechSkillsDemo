@@ -1,0 +1,73 @@
+<html>
+	<style>
+	body {
+	  font: 11px sans-serif;
+	}
+
+	.axis path,
+	.axis line {
+	  fill: none;
+	  stroke: #000;
+	  shape-rendering: crispEdges;
+	}
+
+	.dot {
+	  stroke: #000;
+	}
+
+	.tooltip {
+	  position: absolute;
+	  width: 200px;
+	  height: 28px;
+	  pointer-events: none;
+	}
+	</style>
+	
+	<body>
+		<!-- 
+			Nathan Lang
+			Intro Tech Skills Demo
+			link: https://
+		-->
+		<script src="https://d3js.org/d3.v3.min.js"></script>
+		<script>
+		// 1. create 2 arrays with 10 instances of random numbers 1-10
+		var x_axis = Array.from({length: 10}, () => Math.floor(Math.random() * 10 +1));
+		var y_axis = Array.from({length: 10}, () => Math.floor(Math.random() * 10 +1));
+		
+		// 2. calculate the mean, median, mode, and st. dev.
+		function mode(arr) {
+			var modeMap = [];
+			var max = arr[0];
+			var maxCount = 1;
+			for(var i = 0; i < arr.length; i++)
+			{
+				var a = arr[i];
+				if(modeMap[a] == null)
+				{
+					modeMap[a] = 1;
+				}
+				else
+				{
+					modeMap[a]++;
+				}
+				if(modeMap[a] > maxCount)
+				{
+					max = a;
+					maxCount = modeMap[a];
+				}
+			}
+			return max;
+		}
+		
+		var xdata = [x_axis, d3.mean(x_axis), d3.median(x_axis), mode(x_axis), d3.deviation(x_axis)];
+		var ydata = [y_axis, d3.mean(y_axis), d3.median(y_axis), mode(y_axis), d3.deviation(y_axis)];
+		var cols = ["Array", "Mean", "Median", "Mode","Standard Deviation"];
+		
+		// display stuff
+		var data = d3.select('body').append('div')
+		data.append('h1').text(function(d) { return "Randomly generated datapoints:"; });
+		
+		</script>
+	</body>
+</html>
