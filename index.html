@@ -32,7 +32,6 @@ body {
 <h2>Tech Skills Demo for COSC 4500</h2>
 <body>
 <table id="bat"></table>
-<div id="plot"></div>
 <script>
 
 	// 1. create 2 arrays with 10 instances of random numbers 1-10
@@ -84,6 +83,25 @@ body {
 	}
 </script>
 <h2>Scatter Plot</h2>
+<script>
+// plot is influenced by: http://bl.ocks.org/weiglemc/6185069
+var margin = {top: 30, right: 30, bottom: 30, left: 30},
+    width = 500 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+// setup x 
+var xValue = function(d) { return d.x_axis;}, 
+    xScale = d3.scale.linear().range([0, width]),
+    xMap = function(d) { return xScale(xValue(d));},
+    xAxis = d3.svg.axis().scale(xScale).orient("bottom");
+
+// setup y
+var yValue = function(d) { return d.y_axis;}, 
+    yScale = d3.scale.linear().range([height, 0]),
+    yMap = function(d) { return yScale(yValue(d));},
+    yAxis = d3.svg.axis().scale(yScale).orient("left");
+
+</script>
 </body>
 
 </html>
