@@ -121,11 +121,13 @@ var cValue = function(d) { return d.Manufacturer;},
     color = d3.scale.category10();
 	
 // adding graph canvas
-var svg = d3.select("body").append("svg").attr("align","center")
-    .attr("width", width + margin.left + margin.right)
+var svg = d3.select("body").append("svg")
+	.attr("align","center");
+    /*.attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+	*/
 	
 // adding tooltip area
 var tooltip = d3.select("body").append("div")
