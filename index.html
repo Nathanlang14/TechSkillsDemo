@@ -1,45 +1,42 @@
-<!DOCTYPE html>
 <html>
+		<!-- 
+			Nathan Lang
+			Intro Tech Skills Demo
+			link: https://
+		-->
+	<style>
+	body {
+	  font: 14px sans-serif;
+	}
 
-<!--
-  The code is hosted live at: 
-  Code inspiration: http://bl.ocks.org/weiglemc/6185069
--->
+	.axis path,
+	.axis line {
+	  fill: none;
+	  stroke: #000;
+	  shape-rendering: crispEdges;
+	}
 
-<meta charset="utf-8">
-<style>
-body {
-  font: 11px sans-serif;
-}
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-.dot {
-  stroke: #000;
-}
-.tooltip {
-  position: absolute;
-  width: 200px;
-  height: 28px;
-  pointer-events: none;
-}
-</style>
+	.dot {
+	  stroke: #000;
+	}
 
-<body>
-<table id="bat"></table>
-<div id="plot"></div>
-
-<script src="https://d3js.org/d3.v3.min.js"></script>
-
-<script>
-
+	.tooltip {
+	  position: absolute;
+	  width: 200px;
+	  height: 28px;
+	  pointer-events: none;
+	}
+	</style>
+	<script src="https://d3js.org/d3.v3.min.js"></script>
+	<body>
+	<table id = "bat"></table>
+	<div id = "scat"></div>
+	</body>
+	<script>
 	// 1. create 2 arrays with 10 instances of random numbers 1-10
 	var x_axis = Array.from({length: 10}, () => Math.floor(Math.random() * 10 +1));
 	var y_axis = Array.from({length: 10}, () => Math.floor(Math.random() * 10 +1));
-
+	
 	// 2. calculate the mean, median, mode, and st. dev.
 	function mode(arr) {
 		var modeMap = [];
@@ -64,25 +61,32 @@ body {
 		}
 		return max;
 	}
-
-	// calculates other stats and stores in arrays
-	xdata = [x_axis, d3.mean(x_axis), d3.median(x_axis), mode(x_axis), d3.deviation(x_axis)];
-	ydata = [y_axis, d3.mean(y_axis), d3.median(y_axis), mode(y_axis), d3.deviation(y_axis)];
-	cols = ["Array", "Mean", "Median", "Mode","Standard Deviation"];
-
-	// displays stat arrays
+	
+	var xdata = [x_axis, d3.mean(x_axis), d3.median(x_axis), mode(x_axis), d3.deviation(x_axis)];
+	var ydata = [y_axis, d3.mean(y_axis), d3.median(y_axis), mode(y_axis), d3.deviation(y_axis)];
+	var cols = ["Array", "Mean", "Median", "Mode","Standard Deviation"];
+	
+	var header = d3.select('body').append('div')
+	header.append('h2').text(function(d) { return "Tech Skills Demo:"; });
+	
 	for(var i = 0; i < cols.length; i++)
 	{
-		var row = d3.select("#bat").append("tr")
-		row.append("th").text(cols[i])
-		row.append("td").text(xdata[i])
-		row.append("td").text(ydata[i])
-		console.log(cols[i])
-		console.log(xdata[i])
-		console.log(ydata[i])
+    var row = d3.select("#bat").append("tr")
+    row.append("th").text(cols[i])
+    row.append("td").text(xdata[i])
+    row.append("td").text(ydata[i])
+    console.log(cols[i])
+    console.log(xdata1[i])
+    console.log(ydata[i])
 	}
-</script>
-
-</body>
-
+	
+	// make chart 
+	var margin = {top: 20, right: 20, bottom: 40, left: 60},
+		width = 500 - margin.left - margin.right,
+		height = 500 - margin.top - margin.bottom;
+		
+	var section2 = d3.select('body').append('div')
+	section2.append('h2').text(function(d) { return "Scatter plot:"; });
+	
+	</script>
 </html>
