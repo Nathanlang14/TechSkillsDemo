@@ -29,13 +29,8 @@ body {
 }
 </style>
 <script src="https://d3js.org/d3.v3.min.js"></script>
-
+<h2>Tech Skills Demo for COSC 4500</h2>
 <body>
-<script>
-	// add header
-	var header = d3.select('body').append('div')
-	header.append('h2').text(function(d) { return "Tech Skills Demo:"; });
-</script>
 <table id="bat"></table>
 <div id="plot"></div>
 
@@ -85,13 +80,10 @@ body {
 		var row = d3.select("#bat").append("tr")
 		// make names bold as a header
 		row.append("th").text(cols[i])
-		
+
 		// fill in columns with data 
 		row.append("td").text(xdata[i])
 		row.append("td").text(ydata[i])
-		//console.log(cols[i])
-		//console.log(xdata[i])
-		//console.log(ydata[i])
 	}
 </script>
 
