@@ -28,9 +28,9 @@ body {
   pointer-events: none;
 }
 </style>
-<script src="https://d3js.org/d3.v3.min.js"></script>
 <h2>Tech Skills Demo for COSC 4500</h2>
 <body>
+<script src="https://d3js.org/d3.v3.min.js"></script>
 <table id="bat"></table>
 <script>
 
@@ -81,6 +81,14 @@ body {
 		row.append("td").text(xdata[i])
 		row.append("td").text(ydata[i])
 	}
+	
+// merge them into 2d dataset
+var data = [];
+for (let i = 0; i < x_axis.length; i++) {
+  const valX = x_axis[i];
+  const valY = y_axis[i];
+  data.push({x: valX, y: valY});
+}
 	
 // plot is influenced by: http://bl.ocks.org/weiglemc/6185069
 var margin = {top: 30, right: 30, bottom: 30, left: 30},
@@ -145,7 +153,8 @@ svg.append("g")
 // draw dots
 svg.selectAll(".dot")
   .data(data)
-.enter().append("circle")
+  .enter()
+  .append("circle")
   .attr("class", "dot")
   .attr("r", 3.5)
   .attr("cx", xMap)
