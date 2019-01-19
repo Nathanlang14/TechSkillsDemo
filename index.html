@@ -29,7 +29,7 @@ body {
 </style>
 
 <body>
-<table id="mme"></table>
+<table id="bat"></table>
 <div id="plot"></div>
 
 <script src="https://d3js.org/d3.v3.min.js"></script>
@@ -77,16 +77,20 @@ function mode(data)
 labels = ["Datas", "Mean", "Median", "Mode", "Standard Deviation"]
 stats1 = [data1, d3.mean(data1), d3.median(data1), mode(data1), d3.deviation(data1)]
 stats2 = [data2, d3.mean(data2), d3.median(data2), mode(data2), d3.deviation(data2)]
+
+xdata = [x_axis, d3.mean(x_axis), d3.median(x_axis), mode(x_axis), d3.deviation(x_axis)];
+ydata = [y_axis, d3.mean(y_axis), d3.median(y_axis), mode(y_axis), d3.deviation(y_axis)];
+cols = ["Arrays", "Mean", "Median", "Mode","Standard Deviation"];
 // displays required data
-for(var i = 0; i < labels.length; i++)
+for(var i = 0; i < cols.length; i++)
 {
-    var row = d3.select("#mme").append("tr")
-    row.append("th").text(labels[i])
-    row.append("td").text(stats1[i])
-    row.append("td").text(stats2[i])
-    console.log(labels[i])
-    console.log(stats1[i])
-    console.log(stats2[i])
+    var row = d3.select("#bat").append("tr")
+    row.append("th").text(cols[i])
+    row.append("td").text(xdata[i])
+    row.append("td").text(ydata[i])
+    console.log(cols[i])
+    console.log(xdata[i])
+    console.log(ydata[i])
 }
 </script>
 
