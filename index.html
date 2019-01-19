@@ -75,7 +75,7 @@ cols = ["Array", "Mean", "Median", "Mode","Standard Deviation"];
 
 // displays stat arrays
 // row by row shows title and then the data for each array
-/*
+
 for(var i = 0; i < cols.length; i++)
 {
 var row = d3.select("#bat").append("tr")
@@ -87,14 +87,6 @@ row.append("th").text(cols[i])
 row.append("td").text(xdata[i])
 row.append("td").text(ydata[i])
 }
-*/
-
-var col1 = d3.select("#bat").append("tr")
-col1.append("th").text(cols)
-var col2 = d3.select("#bat").append("tr")
-col2.append("td").text(xdata)
-var col3 = d3.select("#bat").append("tr")
-col3.append("td").text(ydata)
 
 
 // merge them into 2d dataset
@@ -127,10 +119,6 @@ yAxis = d3.svg.axis().scale(yScale).orient("left");
 
 // 4. svg-based scatterplot
 
-// setting up fill color
-var cValue = function(d) { return d.Manufacturer;},
-color = d3.scale.category10();
-
 // adding graph canvas
 var svg = d3.select("body").append("svg")
 .attr("width", width + margin.left + margin.right)
@@ -147,7 +135,8 @@ var tooltip = d3.select("body").append("div")
 xScale.domain([d3.min(data, xValue)-1, d3.max(data, xValue)+1]);
 yScale.domain([d3.min(data, yValue)-1, d3.max(data, yValue)+1]);
 
-// QUES 6
+// 6. Name Axises
+
 // x-axis
 svg.append("g")
 .attr("class", "x axis")
