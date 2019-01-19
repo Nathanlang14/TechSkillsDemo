@@ -1,37 +1,40 @@
+<!DOCTYPE html>
 <html>
-		<!-- 
-			Nathan Lang
-			Intro Tech Skills Demo
-			link: https://
-		-->
-	<style>
-	body {
-	  font: 11px sans-serif;
-	}
 
-	.axis path,
-	.axis line {
-	  fill: none;
-	  stroke: #000;
-	  shape-rendering: crispEdges;
-	}
+<!--
+  The code is hosted live at: 
+  Code inspiration: http://bl.ocks.org/weiglemc/6185069
+-->
 
-	.dot {
-	  stroke: #000;
-	}
+<meta charset="utf-8">
+<style>
+body {
+  font: 11px sans-serif;
+}
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+.dot {
+  stroke: #000;
+}
+.tooltip {
+  position: absolute;
+  width: 200px;
+  height: 28px;
+  pointer-events: none;
+}
+</style>
 
-	.tooltip {
-	  position: absolute;
-	  width: 200px;
-	  height: 28px;
-	  pointer-events: none;
-	}
-	</style>
-	<script src="https://d3js.org/d3.v3.min.js"></script>
-	<body>
-	<table id = "bat"></table>
-	<div id = "scat"></div>
-	<script>
+<body>
+<table id="mme"></table>
+<div id="plot"></div>
+
+<script src="https://d3js.org/d3.v5.min.js"></script>
+
+<script>
 	// 1. create 2 arrays with 10 instances of random numbers 1-10
 	var x_axis = Array.from({length: 10}, () => Math.floor(Math.random() * 10 +1));
 	var y_axis = Array.from({length: 10}, () => Math.floor(Math.random() * 10 +1));
@@ -75,15 +78,10 @@
     console.log(xdata1[i])
     console.log(ydata[i])
 	}
-	
-	// make chart 
-	var margin = {top: 20, right: 20, bottom: 40, left: 60},
-		width = 500 - margin.left - margin.right,
-		height = 500 - margin.top - margin.bottom;
-		
-	var section2 = d3.select('body').append('div')
-	section2.append('h2').text(function(d) { return "Scatter plot:"; });
-	
-	</script>
-	</body>
+
+
+</script>
+
+</body>
+
 </html>
