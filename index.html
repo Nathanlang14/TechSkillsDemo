@@ -28,12 +28,18 @@ body {
   pointer-events: none;
 }
 </style>
+<script src="https://d3js.org/d3.v3.min.js"></script>
 
 <body>
+<script>
+	// add header
+	var header = d3.select('body').append('div')
+	header.append('h2').text(function(d) { return "Tech Skills Demo:"; });
+</script>
 <table id="bat"></table>
 <div id="plot"></div>
 
-<script src="https://d3js.org/d3.v3.min.js"></script>
+
 
 <script>
 
@@ -71,10 +77,6 @@ body {
 	ydata = [y_axis, d3.mean(y_axis), d3.median(y_axis), mode(y_axis), d3.deviation(y_axis)];
 	cols = ["Array", "Mean", "Median", "Mode","Standard Deviation"];
 	
-	// add header
-	var header = d3.select('body').append('div')
-	header.append('h2').text(function(d) { return "Tech Skills Demo:"; });
-
 	// displays stat arrays
 	for(var i = 0; i < cols.length; i++)
 	{
