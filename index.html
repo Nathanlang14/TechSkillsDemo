@@ -10,7 +10,7 @@
 <meta charset="utf-8">
 <style>
 body {
-  font: 11px sans-serif;
+  font: 14px sans-serif;
 }
 .axis path,
 .axis line {
@@ -48,6 +48,7 @@ body {
 	var y_axis = Array.from({length: 10}, () => Math.floor(Math.random() * 10 +1));
 
 	// 2. calculate the mean, median, mode, and st. dev.
+	// reference: https://codereview.stackexchange.com/questions/68315/finding-the-mode-of-an-array
 	function mode(arr) {
 		var modeMap = [];
 		var max = arr[0];
@@ -78,15 +79,19 @@ body {
 	cols = ["Array", "Mean", "Median", "Mode","Standard Deviation"];
 	
 	// displays stat arrays
+	// row by row shows title and then the data for each array
 	for(var i = 0; i < cols.length; i++)
 	{
 		var row = d3.select("#bat").append("tr")
+		// make names bold as a header
 		row.append("th").text(cols[i])
+		
+		// fill in columns with data 
 		row.append("td").text(xdata[i])
 		row.append("td").text(ydata[i])
-		console.log(cols[i])
-		console.log(xdata[i])
-		console.log(ydata[i])
+		//console.log(cols[i])
+		//console.log(xdata[i])
+		//console.log(ydata[i])
 	}
 </script>
 
