@@ -119,6 +119,10 @@ yAxis = d3.svg.axis().scale(yScale).orient("left");
 
 // 4. svg-based scatterplot
 
+// setting up fill color
+var cValue = function(d) { return d.Manufacturer;},
+color = d3.scale.category10();
+
 // adding graph canvas
 var svg = d3.select("body").append("svg")
 .attr("width", width + margin.left + margin.right)
