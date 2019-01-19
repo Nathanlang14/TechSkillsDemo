@@ -65,9 +65,9 @@ body {
 		return max;
 	}
 	
-	var xdata = [x_axis, d3.mean(x_axis), d3.median(x_axis), mode(x_axis), d3.deviation(x_axis)];
-	var ydata = [y_axis, d3.mean(y_axis), d3.median(y_axis), mode(y_axis), d3.deviation(y_axis)];
-	var cols = ["Array", "Mean", "Median", "Mode","Standard Deviation"];
+	xdata = [x_axis, d3.mean(x_axis), d3.median(x_axis), mode(x_axis), d3.deviation(x_axis)];
+	ydata = [y_axis, d3.mean(y_axis), d3.median(y_axis), mode(y_axis), d3.deviation(y_axis)];
+	cols = ["Array", "Mean", "Median", "Mode","Standard Deviation"];
 	
 	for(var i = 0; i < cols.length; i++)
 	{
