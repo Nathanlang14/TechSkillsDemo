@@ -29,163 +29,127 @@ body {
 </style>
 
 <body>
+<table id="mme"></table>
+<div id="plot"></div>
 
 <script src="https://d3js.org/d3.v3.min.js"></script>
 
 <script>
-// QUES 1
-// generate the arrays with random numbers
-var pointsX = d3.range(10).map(function() { return Math.floor((Math.random() * 10) + 1); });
-var pointsY = d3.range(10).map(function() { return Math.floor((Math.random() * 10) + 1); });
-// merge them into 2d dataset
-var data = [];
-for (let i = 0; i < pointsX.length; i++) {
-  const valX = pointsX[i];
-  const valY = pointsY[i];
-  data.push({x: valX, y: valY});
+
+/**
+ * 1. Using Javascript/D3, create 2 arrays of random, count data within the domain (1-10). Sample size of each array should be 10.
+ */
+var data1 = []
+var data2 = []
+for(var i = 0; i < 10; i++)
+{
+    data1.push(Math.floor(Math.random()*10+1))
+    data2.push(Math.floor(Math.random()*10+1))
 }
-// display the arrays
-var div1 = d3.select('body').append('div')
-div1.append('h1').text(function(d) { return "Randomly generated datapoints:"; });
-div1.append('p').text(function(d) { 
-  var numbers = '1st array: ';
-  for (let i = 0; i < pointsX.length; i++) {
-    const element = pointsX[i];
-    numbers = numbers + element;
-    if (i < pointsX.length - 1) {
-      numbers = numbers + ', '
-    }
-  }
-  return numbers; 
-});
-div1.append('p').text(function(d) { 
-  var numbers = '2nd array: ';
-  for (let i = 0; i < pointsY.length; i++) {
-    const element = pointsY[i];
-    numbers = numbers + element;
-    if (i < pointsX.length - 1) {
-      numbers = numbers + ', '
-    }
-  }
-  return numbers; 
-});
-div1.append('p').text(function(d) { 
-  var numbers = 'Merged datapoints: ';
-  for (let i = 0; i < data.length; i++) {
-    const element = data[i];
-    numbers = numbers + "(" + element.x + ", " + element.y + ")";
-    if (i < pointsX.length - 1) {
-      numbers = numbers + ', '
-    }
-  }
-  return numbers; 
-});
-// QUES 2
-// display the mean, median, mode, std
-function mode(arr) { 
-  var mode = 0;
-  var count = 0;
-    for(var i = 0; i < arr.length; i++){
-      for(var j = 0; j < i; j++){
-        if(arr[j] === arr[i]){
-            mode = arr[j];
-            count++;
+
+/**
+ * 2. Calculate mean, median, mode, and standard deviation of each array and print them on the html with formatting.
+ */
+// returns the mode of a data set
+function mode(data)
+{
+    var modeMap = []
+    var max = data[0]
+    var maxCount = 1
+    for(var i = 0; i < data.length; i++)
+    {
+        var d = data[i]
+        if(modeMap[d] == null)
+        {
+            modeMap[d] = 1
         }
-      }
+        else
+        {
+            modeMap[d]++
+        }
+        if(modeMap[d] > maxCount)
+        {
+            max = d
+            maxCount = modeMap[d]
+        }
     }
-    return mode;
+    return max
 }
-var div2 = d3.select('body').append('div')
-div2.append('h1').text(function(d) { return "Mean, median and standard deviation:"; });
-div2.append('h2').text(function(d) { return "1st array"; });
-div2.append('p').text(function(d) { 
-  return "Mean: " + d3.mean(pointsX) + ", Median: " + d3.median(pointsX) + ", Mode: " + mode(pointsX) + ", Standard deviation: " + d3.deviation(pointsX); 
-});
-div2.append('h2').text(function(d) { return "2nd array"; });
-div2.append('p').text(function(d) { 
-  return "Mean: " + d3.mean(pointsY) + ", Median: " + d3.median(pointsY) + ", Mode: " + mode(pointsY) + ", Standard deviation: " + d3.deviation(pointsY); 
-});
-// setting up the canvas
-var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 400 - margin.left - margin.right,
-    height = 300 - margin.top - margin.bottom;
-var div3 = d3.select('body').append('div')
-div3.append('h1').text(function(d) { return "Scatter plot:"; });
-// QUES 3
-// setting up x-axis
-var xValue = function(d) { return d.x;}, 
-    xScale = d3.scale.linear().range([0, width]), 
-    xMap = function(d) { return xScale(xValue(d));}, 
-    xAxis = d3.svg.axis().scale(xScale).orient("bottom");
-// setting up y-axis
-var yValue = function(d) { return d.y;}, 
-    yScale = d3.scale.linear().range([height, 0]), 
-    yMap = function(d) { return yScale(yValue(d));},
-    yAxis = d3.svg.axis().scale(yScale).orient("left");
-// QUES 4
-// setting up fill color
-var cValue = function(d) { return d.Manufacturer;},
-    color = d3.scale.category10();
-// adding graph canvas
-var svg = d3.select("body").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-// adding tooltip area
-var tooltip = d3.select("body").append("div")
-  .attr("class", "tooltip")
-  .style("opacity", 0);
-// adding space to avoid overlapping of axes
-xScale.domain([d3.min(data, xValue)-1, d3.max(data, xValue)+1]);
-yScale.domain([d3.min(data, yValue)-1, d3.max(data, yValue)+1]);
-// QUES 6
-// x-axis
-svg.append("g")
-    .attr("class", "x axis")
-    .attr("transform", "translate(0," + height + ")")
-    .call(xAxis)
-    .append("text")
-    .attr("class", "label")
-    .attr("x", width)
-    .attr("y", -6)
-    .style("text-anchor", "end")
-    .text("Count of Michael Scott's joke");
-// y-axis
-svg.append("g")
-    .attr("class", "y axis")
-    .call(yAxis)
-    .append("text")
-    .attr("class", "label")
-    .attr("transform", "rotate(-90)")
-    .attr("y", 6)
-    .attr("dy", ".71em")
-    .style("text-anchor", "end")
-    .text("Count of Kevin Malone's awkward look");
-// QUES 5
-// draw dots
-svg.selectAll(".dot")
-    .data(data)
-    .enter()
-    .append("circle")
-    .attr("class", "dot")
-    .attr("r", 3.5)
-    .attr("cx", xMap)
-    .attr("cy", yMap)
-    .style("fill", function(d) { return color(cValue(d));}) 
-    .on("mouseover", function(d) {
-        tooltip.transition()
-          .duration(200)
-          .style("opacity", .9);
-        tooltip.html("(" + xValue(d) + ", " + yValue(d) + ")")
-          .style("left", (d3.event.pageX + 5) + "px")
-          .style("top", (d3.event.pageY - 28) + "px");
-    })
-    .on("mouseout", function(d) {
-        tooltip.transition()
-          .duration(500)
-          .style("opacity", 0);
-    });
+// produces required data
+labels = ["Data", "Mean", "Median", "Mode", "Standard Deviation"]
+stats1 = [data1, d3.mean(data1), d3.median(data1), mode(data1), d3.deviation(data1)]
+stats2 = [data2, d3.mean(data2), d3.median(data2), mode(data2), d3.deviation(data2)]
+
+// displays required data
+for(var i = 0; i < labels.length; i++)
+{
+    var row = d3.select("#mme").append("tr")
+    row.append("th").text(labels[i])
+    row.append("td").text(stats1[i])
+    row.append("td").text(stats2[i])
+    console.log(labels[i])
+    console.log(stats1[i])
+    console.log(stats2[i])
+}
+
+/**
+ * 3. Use these 2 arrays to define a x-axis and y-axis.
+ */
+// defines bounds of chart
+var margin = {top: 20, right: 15, bottom: 60, left: 60}
+var width = 960 - margin.left - margin.right
+var height = 500 - margin.top - margin.bottom;
+
+// defines data for chart
+var x = d3.scaleLinear().domain([0, d3.max(data1)]).range([0, width])
+var y = d3.scaleLinear().domain([0, d3.max(data2)]).range([height, 0])
+
+// defines chart
+var chart = d3.select("body").append("svg:svg").attr("width", width + margin.right + margin.left).attr("height", height + margin.top + margin.bottom)
+var main = chart.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")").attr("width", width).attr("height", height).attr("class", "main")
+
+// builds axes
+var xAxis = d3.axisBottom(x)
+main.append("g").attr("transform", "translate(0," + height + ")").attr("class", "main axis date").call(xAxis)
+var yAxis = d3.axisLeft(y)
+main.append("g").attr("transform", "translate(0,0)").attr("class", "main axis date").call(yAxis)
+
+/**
+ * 4. Build a svg-based scatterplot based on the random count data generated in 1.
+ */
+// combine data into an easier to use form
+var data = new Array(10)
+for(var i = 0; i < 10; i++)
+{
+    data[i] = [data1[i], data2[i]]
+}
+
+// plots points
+var g = main.append("svg:g")
+var div = d3.select("body").append("div").attr("class", "tooltip").style("opacity", 0);
+var points = g.selectAll("scatter-dots").data(data).enter().append("svg:circle").attr("cx", function(d,i) {
+    return x(d[0])
+}).attr("cy", function(d) {
+    return y(d[1])
+}).attr("r", 8)
+
+/**
+ * 5. If I hover over any data point in said scatterplot, I should be able to see both data points.
+ */
+points.on("mouseover", function(d) {
+    div.transition().duration(200).style("opacity", "0.9")
+    div.html("(" + d[0] + "," + d[1] + ")")
+}).on("mouseout", function(d) {
+    div.transition().duration(500).style("opacity", 0)
+})
+
+/**
+ * 6. Your axes should be named appropriately. Since it's random data, come up with the most innovative names that you can think of.
+ */
+main.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(x))
+main.append("text").attr("transform", "translate(" + (width/2) + " ," + (height + margin.top + 20) + ")").style("text-anchor", "middle").text("\"Random\" Data 1")
+main.append("g").call(d3.axisLeft(y))
+main.append("text").attr("transform", "rotate(-90)").attr("y", 0 - margin.left).attr("x", 0 - (height/2)).attr("dy", "1em").style("text-anchor", "middle").text("\"Random\" Data 2")
 </script>
 
 </body>
