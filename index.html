@@ -31,7 +31,7 @@ body {
 <h2>Tech Skills Demo for COSC 4500</h2>
 <body>
 <script src="https://d3js.org/d3.v3.min.js"></script>
-<table id="bat"></table>
+<table id="bat" align = "center" ></table>
 <script>
 
 	// 1. create 2 arrays with 10 instances of random numbers 1-10
@@ -91,39 +91,47 @@ for (let i = 0; i < x_axis.length; i++) {
 }
 	
 // plot is influenced by: http://bl.ocks.org/weiglemc/6185069
+
+// setup size
 var margin = {top: 30, right: 30, bottom: 30, left: 30},
     width = 500 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
-// setting up x-axis
+// 3. Set up axises
+// x-axis
 var xValue = function(d) { return d.x;}, 
     xScale = d3.scale.linear().range([0, width]), 
     xMap = function(d) { return xScale(xValue(d));}, 
     xAxis = d3.svg.axis().scale(xScale).orient("bottom");
 	
-// setting up y-axis
+// y-axis
 var yValue = function(d) { return d.y;}, 
     yScale = d3.scale.linear().range([height, 0]), 
     yMap = function(d) { return yScale(yValue(d));},
     yAxis = d3.svg.axis().scale(yScale).orient("left");
 	
-// QUES 4
+// 4. svg-based scatterplot
+
 // setting up fill color
 var cValue = function(d) { return d.Manufacturer;},
     color = d3.scale.category10();
+	
 // adding graph canvas
 var svg = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+	
 // adding tooltip area
 var tooltip = d3.select("body").append("div")
   .attr("class", "tooltip")
   .style("opacity", 0);
+  
 // adding space to avoid overlapping of axes
 xScale.domain([d3.min(data, xValue)-1, d3.max(data, xValue)+1]);
 yScale.domain([d3.min(data, yValue)-1, d3.max(data, yValue)+1]);
+
 // QUES 6
 // x-axis
 svg.append("g")
@@ -147,8 +155,9 @@ svg.append("g")
     .attr("dy", ".71em")
     .style("text-anchor", "end")
     .text("Stress Level");
-// QUES 5
-// draw dots
+	
+	
+// 5. Show data and all hover over
 svg.selectAll(".dot")
     .data(data)
     .enter()
