@@ -121,9 +121,6 @@ color: #0000FF;
 
 	// 4. svg-based scatterplot
 
-	// setting up fill color
-	var cValue = function(d) { return d.Manufacturer;},
-	color = #0000FF;
 
 	// adding graph canvas
 	var svg = d3.select("body").append("svg")
@@ -176,7 +173,7 @@ color: #0000FF;
 		.attr("r", 6)
 		.attr("cx", xMap)
 		.attr("cy", yMap)
-		.style("fill", function(d) { return color(cValue(d));}) 
+		.style("fill", "blue") 
 		.on("mouseover", function(d) {
 		tooltip.transition()
 		.duration(200)
